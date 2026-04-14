@@ -50,7 +50,7 @@ class CNN(nn.Module):
 
 # Load model
 model = CNN().to(device)
-model.load_state_dict(torch.load("mnist_cnn_weights.pt", map_location=device))
+model.load_state_dict(torch.load("mnist_cnn_full_model.pth", map_location=device))
 model.eval()
 
 # Image preprocessing
