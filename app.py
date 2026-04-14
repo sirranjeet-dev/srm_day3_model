@@ -7,7 +7,6 @@ Original file is located at
     https://colab.research.google.com/drive/1tByWu75r-cO6L0cP0pwAU5dADMJlys4S
 """
 
-pip install fastapi uvicorn torch torchvision pillow
 from fastapi import FastAPI, File, UploadFile
 import torch
 import torch.nn as nn
