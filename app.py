@@ -25,7 +25,7 @@ app.add_middleware(CORSMiddleware,allow_origins=["*"],
 # Device
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 #Allow frontend access
-a
+
 # Define the same CNN model
 class CNN(nn.Module):
     def __init__(self):
