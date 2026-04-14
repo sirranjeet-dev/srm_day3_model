@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>MNIST Digit Predictor</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            text-align: center;
+            padding: 50px;
+        }
+
+        .container {
+            background: white;
+            color: black;
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 400px;
+            margin: auto;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+
+        h1 {
+            margin-bottom: 10px;
+        }
+
+        input[type="file"] {
+            margin: 20px 0;
+        }
+
+        button {
+            background: #667eea;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background: #5a67d8;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        img {
+            margin-top: 15px;
+            max-width: 150px;
+            border-radius: 10px;
+            border: 2px solid #ddd;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>🔢 Digit Predictor</h1>
+        <p>Upload a handwritten digit image</p>
+
+        <input type="file" id="fileInput" accept="image/*">
+        <br>
+        <button onclick="predict()">Predict</button>
+
+        <div>
+            <img id="preview" src="" alt="">
+        </div>
+
+        <div id="result"></div>
+    </div>
+
+    <script>
+        const apiUrl = "https://srm-day3-model-7y9t.onrender.com"; // 🔁 replace this
+
+        function predict() {
+            const fileInput = document.getElementById("fileInput");
+            const file = fileInput.files[0];
+
+            if (!file) {
+                alert("Please select an image first!");
+                return;
+            }
+
+            // Preview image
+            const preview = document.getElementById("preview");
+            preview.src = URL.createObjectURL(file);
+
+            const formData = new FormData();
+            formData.append("file", file);
+
+            fetch(apiUrl, {
+                method: "POST",
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("result").innerText =
+                    "Prediction: " + data.prediction;
+            })
+            .catch(error => {
+                console.error(error);
+                document.getElementById("result").innerText =
+                    "Error connecting to API";
+            });
+        }
+    </script>
+
+</body>
+</html>
